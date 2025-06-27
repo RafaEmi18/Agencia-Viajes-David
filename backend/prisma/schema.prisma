@@ -15,18 +15,74 @@ datasource db {
 }
 
 model User {
-  id                       String    @id @default(cuid())
-  email                    String    @unique
-  password                 String
-  name                     String
-  lastLogin               DateTime  @default(now())
-  isVerified              Boolean   @default(false)
-  resetPasswordToken      String?
-  resetPasswordExpiresAt  DateTime?
-  verificationToken       String?
-  verificationExpiresAt   DateTime?
-  createdAt               DateTime  @default(now())
-  updatedAt               DateTime  @updatedAt
+  id                      String    @id @default(cuid())
+  email                   String    @unique
+  password                String
+  name                    String
+  lastLogin              DateTime  @default(now())
+  isVerified             Boolean   @default(false)
+  resetPasswordToken     String?
+  resetPasswordExpiresAt DateTime?
+  verificationToken      String?
+  verificationExpiresAt  DateTime?
+  createdAt              DateTime  @default(now())
+  updatedAt              DateTime  @updatedAt
+
+  bookings               Booking[] 
 
   @@map("users")
+}
+
+model Destination {
+  id          String           @id @default(cuid())
+  name        String           @unique
+  region      String
+  transports  TransportOption[]
+  hotels      Hotel[]
+  bookings    Booking[]      
+
+  @@map("destinations")
+}
+
+model TransportOption {
+  id             String   @id @default(cuid())
+  type           String
+  cost           Float
+  hasTransfer    Boolean
+  durationHours  Float
+  destinationId  String
+  destination    Destination @relation(fields: [destinationId], references: [id])
+  bookings       Booking[]    
+
+  @@map("transport_options")
+}
+
+model Hotel {
+  id             String   @id @default(cuid())
+  name           String
+  category       String
+  costPerNight   Float
+  destinationId  String
+  destination    Destination @relation(fields: [destinationId], references: [id])
+  bookings       Booking[]  
+  imageUrl       String?
+
+  @@map("hotels")
+}
+
+model Booking {
+  id            String           @id @default(cuid())
+  userId        String
+  destinationId String
+  transportId   String
+  hotelId       String
+  totalCost     Float
+  createdAt     DateTime         @default(now())
+
+  user         User             @relation(fields: [userId], references: [id])
+  destination  Destination      @relation(fields: [destinationId], references: [id])
+  transport    TransportOption  @relation(fields: [transportId], references: [id])
+  hotel        Hotel            @relation(fields: [hotelId], references: [id])
+
+  @@map("bookings")
 }

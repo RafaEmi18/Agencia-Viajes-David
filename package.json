@@ -10,6 +10,9 @@
   "type": "module",
   "license": "ISC",
   "description": "",
+  "prisma": {
+    "seed": "node prisma/seeed.js"
+  },
   "dependencies": {
     "@prisma/client": "^6.10.1",
     "bcryptjs": "^3.0.2",
@@ -24,6 +27,8 @@
     "prisma": "^6.10.1"
   },
   "devDependencies": {
-    "nodemon": "^3.1.10"
+    "@types/node": "^24.0.4",
+    "nodemon": "^3.1.10",
+    "ts-node": "^10.9.2"
   }
 }

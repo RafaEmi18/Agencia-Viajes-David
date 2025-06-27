@@ -4,17 +4,18 @@ import FloatingShape from "./components/FloatingShape";
 import SignUpPage from "./pages/SignUpPage";
 import LoginPage from "./pages/LoginPage";
 import EmailVerificationPage from "./pages/EmailVerificationPage";
-import DashboardPage from "./pages/DashboardPage";
 import ForgotPasswordPage from "./pages/ForgotPasswordPage";
 import ResetPasswordPage from "./pages/ResetPasswordPage";
-import DecisionTreePage from "./pages/DecisionTreePage";
-import SummaryPage from "./pages/SummaryPage";
 
 import LoadingSpinner from "./components/LoadingSpinner";
 
 import { Toaster } from "react-hot-toast";
 import { useAuthStore } from "./store/authStore";
 import { useEffect } from "react";
+import TravelDashboard from "./pages/TravelDashboard";
+import HotelResults from "./pages/HotelResults";
+import HotelDetail from "./pages/HotelDetail";
+import ConfirmReservation from "./pages/ConfirmReservation";
 
 // redirect authenticated users to the home page
 const RedirectAuthenticatedUser = ({ children }) => {
@@ -49,7 +50,7 @@ function App() {
 				<Route
 					path='/'
 					element={
-							<DashboardPage />
+							<TravelDashboard />
 					}
 				/>
 				<Route
@@ -86,9 +87,10 @@ function App() {
 						</RedirectAuthenticatedUser>
 					}
 				/>
-
-				<Route path="/travel" element={isAuthenticated ? <DecisionTreePage /> : <Navigate to="/login" />} />
-				<Route path="/summary" element={isAuthenticated ? <SummaryPage /> : <Navigate to="/login" />} />
+				{/* Travel related routes */}
+				<Route path="/hotels" element={<HotelResults />} />
+				<Route path="/hotels/:hotelId" element={<HotelDetail />} />
+				<Route path="/confirm-reservation" element={<ConfirmReservation />} />
 
 				{/* catch all routes */}
 				<Route path='*' element={<Navigate to='/' replace />} />

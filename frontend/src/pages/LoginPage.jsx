@@ -46,9 +46,6 @@ const LoginPage = () => {
 					/>
 
 					<div className='flex items-center mb-6'>
-						<Link to='/forgot-password' className='text-sm text-green-400 hover:underline'>
-							Contraseña olvidada?
-						</Link>
 					</div>
 					{error && <p className='mb-2 font-semibold text-red-500'>{error}</p>}
 
