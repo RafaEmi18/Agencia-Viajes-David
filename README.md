@@ -7,7 +7,7 @@ Primero, inicia el `packet.json`:
 ```bash
 npm install
 # or
-npmr i
+npm i
 ```
 
 Luego, ejecuta el servidor dentro de la carpeta `backend`:
